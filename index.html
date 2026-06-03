@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NewsFlash · Modular News Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f5f7fb;
+      color: #1e293b;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .site-header {
+      background: white;
+      border-bottom: 1px solid #eef2f6;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      background: #2563eb;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    .logo-text h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #1e293b, #2563eb);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .logo-text span {
+      font-size: 0.75rem;
+      color: #5b6e8c;
+    }
+
+    .date-badge {
+      background: #eef2ff;
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #1e40af;
+    }
+
+    .action-bar {
+      background: white;
+      border-radius: 28px;
+      margin: 28px 0 24px;
+      padding: 16px 20px;
+      border: 1px solid #eef2f6;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .search-wrapper {
+      flex: 2;
+      display: flex;
+      align-items: center;
+      background: #f8fafc;
+      border-radius: 60px;
+      padding: 4px 12px;
+      border: 1px solid #e2e8f0;
+    }
+
+    #searchInput {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      background: transparent;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    #clearSearchBtn, .reset-filters-btn {
+      background: #f1f5f9;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .cat-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .cat-btn {
+      background: white;
+      border: 1px solid #e2e8f0;
+      padding: 8px 20px;
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .cat-btn.active {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+    }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+      gap: 28px;
+      margin: 28px 0 48px;
+    }
+
+    .news-card {
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid #edf2f7;
+      transition: transform 0.2s;
+    }
+
+    .news-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+    }
+
+    .card-img {
+      height: 190px;
+      overflow: hidden;
+    }
+
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 20px;
+    }
+
+    .meta-cat {
+      background: #eef2ff;
+      color: #1e40af;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 30px;
+      display: inline-block;
+      margin-bottom: 14px;
+    }
+
+    .news-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .news-desc {
+      color: #475569;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      line-height: 1.45;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #f0f2f5;
+      padding-top: 14px;
+    }
+
+    .date-info {
+      font-size: 0.75rem;
+      color: #6c86a3;
+    }
+
+    .read-btn {
+      background: none;
+      border: none;
+      color: #2563eb;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 60px;
+      background: white;
+      border-radius: 40px;
+      color: #5b6e8c;
+    }
+
+    footer {
+      border-top: 1px solid #e2e8f0;
+      background: white;
+      padding: 28px 0;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="site-header">
+  <div class="container header-flex">
+    <div class="logo-area">
+      <div class="logo-icon"><i class="fas fa-newspaper"></i></div>
+      <div class="logo-text">
+        <h1>NewsFlash</h1>
+        <span>modular · easy updates</span>
+      </div>
+    </div>
+    <div class="date-badge" id="liveDate"></div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="action-bar">
+    <div class="search-wrapper">
+      <i class="fas fa-search"></i>
+      <input type="text" id="searchInput" placeholder="Search news...">
+      <button id="clearSearchBtn"><i class="fas fa-times"></i></button>
+    </div>
+    <button id="resetAllBtn" class="reset-filters-btn">Reset filters</button>
+  </div>
+
+  <div id="categoryContainer" class="cat-buttons"></div>
+  <div id="newsGridContainer" class="news-grid"></div>
+</div>
+
+<footer>
+  <div class="container">
+    <p><i class="far fa-edit"></i> Edit <strong>js/data.js</strong> → add a new object to the array. Easy daily news!</p>
+  </div>
+</footer>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
